@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Parser\Parser.fsproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Types.fs" />
+    <Compile Include="Operators.fs" />
+    <Compile Include="Expressions.fs" />
+    <Compile Include="Statements.fs" />
+    <Compile Include="Library.fs" />
+  </ItemGroup>
+</Project>
