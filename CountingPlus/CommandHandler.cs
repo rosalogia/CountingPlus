@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
 using Interpreter;
 
 namespace CountingPlus
@@ -20,7 +22,19 @@ namespace CountingPlus
         {
             var input = code.Trim('`', '\n');
             var output = PlusPlusSharp.execute(input, 0, 0);
-            await ctx.RespondAsync(output);
+            var brokenString = output.Split(":");
+            
+            for (var i = 0; i < brokenString.Length; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    brokenString[i] = DiscordEmoji.FromName(ctx.Client, $":{brokenString[i]}:").ToString();
+                }
+            }
+            
+            var fixedOutput = string.Join("", brokenString);
+
+            await ctx.RespondAsync(fixedOutput);
         }
     }
 }

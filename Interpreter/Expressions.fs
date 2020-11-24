@@ -10,11 +10,13 @@ module Expressions =
         |> List.map snd
         |> List.head
 
-    let printValue value =
+    let printValue newline value =
+        let nl = if newline then "\n" else ""
         match value with
-        | Integer i -> outputString <- outputString + sprintf "%i\n" i
-        | Bool b    -> outputString <- outputString + sprintf "%b\n" b
-        | String s  -> outputString <- outputString + sprintf "%s\n" s
+        | Integer i -> outputString <- outputString + sprintf "%i%s" i nl
+        | Bool b    -> outputString <- outputString + sprintf "%b%s" b nl
+        | String s  -> outputString <- outputString + sprintf "%s%s" s nl
+        | Float f   -> outputString <- outputString + sprintf "%f%s" f nl
 
     let interpretConditionalValue = function
         | Bool b    -> b

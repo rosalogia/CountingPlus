@@ -7,6 +7,8 @@ module Types =
         | Integer   of int
         | String    of string
         | Bool      of bool
+        | Float     of float
+        | ValArray  of Value array
 
     type Operator =
         | ADD
@@ -18,11 +20,12 @@ module Types =
         | LT
         | GTE
         | LTE
-        | EQUALS
-        | NOTEQUALS
+        | EQ
+        | NEQ
         | NOT
         | AND
         | OR
+        | SCONCAT
     type Expr =
         | Literal   of Value
         | Variable  of Name
@@ -30,7 +33,7 @@ module Types =
 
     type Statement =
         | READ      of Name
-        | DISPLAY   of Expr
+        | DISPLAY   of bool * Expr
         | SET       of Name * Expr
         | COMPUTE   of Name * Expr
         | IF        of Expr * Block * Block option

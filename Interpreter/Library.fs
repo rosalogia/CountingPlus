@@ -17,6 +17,6 @@ module PlusPlusSharp =
             outputString <- ""
             printfn "%s" codeString
             printfn "%A" result
-            sprintf "Worked:\n%s" output
+            sprintf "%s" output
         | Error err ->
             err

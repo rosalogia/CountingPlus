@@ -5,8 +5,8 @@ open Interpreter.Expressions
 open System
 
 module Statements =
-    let display exp state =
-        printValue (evaluateExpression state exp)
+    let display newline exp state =
+        printValue newline (evaluateExpression state exp)
         state
 
     let set name exp state =
@@ -84,7 +84,7 @@ module Statements =
     and runStatement state s =
         state
         |>  match s with
-            | DISPLAY exp                           -> display exp
+            | DISPLAY (newline, exp)                -> display newline exp
             | SET (name, exp)                       -> set name exp
             | READ name                             -> read name
             | IF (cond, block, elseBlockOption)     -> conditional cond block elseBlockOption

@@ -16,9 +16,16 @@ module Statements =
         |>> READ
     
     let pdisplay: Parser<Statement, Unit> =
-        pword "print"
-        >>. between (pword "(") (pword ")") pexpression
-        |>> DISPLAY
+        let print =
+            pword "print"
+            >>. between (pword "(") (pword ")") pexpression
+            |>> (fun x -> DISPLAY (false, x))
+        let println =
+            pword "println"
+            >>. between (pword "(") (pword ")") pexpression
+            |>> (fun x -> DISPLAY (true, x))
+        
+        println <|> print
 
     let pset: Parser<Statement, Unit> =
         // let ident = between (pword "SET") (pword "TO") pidentifier

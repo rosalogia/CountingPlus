@@ -18,15 +18,22 @@ module Base =
         let words = pchar '\"' >>. manyCharsTill anyChar (pchar '\"')
         words |>> string .>> spaces
 
+    let pnumber: Parser<Value, Unit> =
+        let numberFormat =     NumberLiteralOptions.AllowMinusSign
+                           ||| NumberLiteralOptions.AllowFraction
+                           ||| NumberLiteralOptions.AllowExponent
 
-
-    let pintval:    Parser<Value, Unit>     =   pint64          |>> int     |>> Integer
+        numberLiteral numberFormat "number"
+        |>> fun nl ->
+                if nl.IsInteger then Integer (int nl.String)
+                else Float (float nl.String)
+            
     let pstringval: Parser<Value, Unit>     =   pstringliteral  |>> String
     let pboolval:   Parser<Value, Unit>     =   pbool           |>> Bool
 
     let pvalue =
         choice [
-            pintval
+            pnumber
             pstringval
             pboolval
         ]
